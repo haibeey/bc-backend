@@ -7,10 +7,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/hasura/go-graphql-client"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
+
+	"github.com/hasura/go-graphql-client"
 )
 
 type payment struct {
@@ -122,7 +124,7 @@ func BillCard(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	client := graphql.NewClient("http://localhost:8080/query", nil)
+	client := graphql.NewClient(os.Getenv("GRAPHQLURL")+"/query", nil)
 	err = client.Mutate(context.Background(), &m, variables)
 	if err != nil {
 		model.NewResponse(w, 500, fmt.Errorf("Error finishing up transaction"), err.Error())

@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"os"
 
 	"github.com/hasura/go-graphql-client"
 )
@@ -83,7 +84,7 @@ func AddCard(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	client := graphql.NewClient("http://localhost:8080/query", nil)
+	client := graphql.NewClient(os.Getenv("GRAPHQLURL")+"/query", nil)
 	err = client.Mutate(context.Background(), &m, variables)
 	if err != nil {
 		model.NewResponse(w, 500, fmt.Errorf("Error creating card"), err.Error())
@@ -104,8 +105,7 @@ func GetUserCards(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client := graphql.NewClient("http://localhost:8080/query", nil)
-
+	client := graphql.NewClient(os.Getenv("GRAPHQLURL")+"/query", nil)
 	var q struct {
 		Cards []struct {
 			ID graphql.String

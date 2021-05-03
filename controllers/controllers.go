@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/hasura/go-graphql-client"
 )
@@ -22,7 +23,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client := graphql.NewClient("http://localhost:8080/query", nil)
+	client := graphql.NewClient(os.Getenv("GRAPHQLURL")+"/query", nil)
 	var q struct {
 		FindUser struct {
 			Name graphql.String
@@ -74,7 +75,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client := graphql.NewClient("http://localhost:8080/query", nil)
+	client := graphql.NewClient(os.Getenv("GRAPHQLURL")+"/query", nil)
 
 	var m struct {
 		CreateUser string `graphql:"login(input: $name)"`

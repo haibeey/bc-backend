@@ -31,7 +31,7 @@ func main() {
 
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
 
-	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	router.Handle("/graphql", playground.Handler("GraphQL playground", "/query"))
 	router.Handle("/query", srv)
 	router.HandleFunc("/signup", controllers.SignUp)
 	router.HandleFunc("/login", controllers.Login)

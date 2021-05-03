@@ -1,0 +1,73 @@
+
+type User {
+  id: ID!
+  name: String!
+  password: String!
+}
+
+type Card {
+  id: ID!
+  owner: String!
+  apiID: String!
+  cvv: String!
+  cardNo: String!
+  expiryDate: String!
+}
+
+type Transaction {
+  id: ID!
+  apiID: String!
+  card: String!
+  time: String!
+  amount: String!
+  debitedOrCredited: Boolean!
+}
+
+type Query {
+  users: [User!]!
+  findUser(name: String!):User! 
+  cards: [Card!]!
+  transactions: [Transaction!]!
+  userCards(userID: String!): [Card!]
+  userTransaction(userID: String!): [Transaction!]
+  cardTransaction(cardID: String!): [Transaction!]
+}
+
+input NewCard {
+  title: String!
+  owner: String!
+  cvv: String!
+  cardNo: String!
+  apiID: String!
+  expiryDate: String!
+}
+
+input NewTransanction {
+  card: String!
+  time: String!
+  amount: String!
+  apiID: String!
+  debitedOrCredited: Boolean!
+}
+
+input RefreshTokenInput{
+  token: String!
+}
+
+input NewUser {
+  username: String!
+  password: String!
+}
+
+input Login {
+  username: String!
+  password: String!
+}
+
+type Mutation {
+  createUser(input: NewUser!): String!
+  login(input: Login!): String!
+  refreshToken(input: RefreshTokenInput!): String!
+  createCard(input: NewCard!): Card!
+  createTransaction(input: NewTransanction!): Transaction!
+}

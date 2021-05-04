@@ -8,7 +8,6 @@ require (
 	github.com/99designs/gqlgen v0.13.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-chi/chi v4.1.2+incompatible
-	github.com/go-playground/locales v0.13.0
 	github.com/google/go-cmp v0.5.5 // indirect
 	github.com/google/uuid v1.2.0 // indirect
 	github.com/hasura/go-graphql-client v0.2.0

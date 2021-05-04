@@ -36,8 +36,13 @@ func NewResponse(w http.ResponseWriter, status int, err error, data interface{})
 		Message: err.Error(),
 		Data:    data,
 	}
+    w.Header().Set("Content-Type","application/json")
 	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(er)
+	j,err := json.Marshal(er)
+        if err!=nil{
+		w.Write([]byte(err.Error()))
+	}
+	w.Write(j)
 }
 
 // HTTPRes example
